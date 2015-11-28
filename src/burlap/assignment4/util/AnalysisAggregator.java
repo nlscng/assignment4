@@ -12,6 +12,10 @@ public final class AnalysisAggregator {
 	private static List<Integer> millisecondsToFinishValueIteration = new ArrayList<Integer>();
 	private static List<Integer> millisecondsToFinishPolicyIteration = new ArrayList<Integer>();
 	private static List<Integer> millisecondsToFinishQLearning = new ArrayList<Integer>();
+
+	private static List<Double> rewardSumValueIteration = new ArrayList<Double>();
+	private static List<Double> rewardSumPolicyIteration = new ArrayList<Double>();
+	private static List<Double> rewardSumQLearning = new ArrayList<Double>();
 	
 	public static void addNumberOfIterations(Integer numIterations1){
 		numIterations.add(numIterations1);
@@ -37,6 +41,8 @@ public final class AnalysisAggregator {
 		System.out.print("Q Learning,");	
 		printList(stepsToFinishQLearning);
 	}
+
+
 	
 
 	public static void addMillisecondsToFinishValueIteration(Integer millisecondsToFinishValueIteration1){
@@ -60,7 +66,30 @@ public final class AnalysisAggregator {
 		System.out.print("Q Learning,");	
 		printList(millisecondsToFinishQLearning);
 	}
-	
+
+	public static void addRewardSumValueIteration(Double rewardSumValueIteration1) {
+		rewardSumValueIteration.add(rewardSumValueIteration1);
+	}
+	public static void addRewardSumPolicyteration(Double rewardSumPolicyIteration1) {
+		rewardSumPolicyIteration.add(rewardSumPolicyIteration1);
+	}
+	public static void addRewardSumQLearning(Double rewardSumQLearning1) {
+		rewardSumQLearning.add(rewardSumQLearning1);
+	}
+	public static void printRewardSumValueIteration(){
+		System.out.print("Value Iteration,");
+		printDoubleList(rewardSumValueIteration);
+	}
+	public static void printRewardSumPolicyIteration(){
+		System.out.print("Policy Iteration,");
+		printDoubleList(rewardSumPolicyIteration);
+	}
+	public static void printRewardSumQLearning(){
+		System.out.print("Q Learning,");
+		printDoubleList(rewardSumQLearning);
+	}
+
+
 	public static void printNumIterations(){
 		System.out.print("Iterations,");	
 		printList(numIterations);
@@ -68,6 +97,17 @@ public final class AnalysisAggregator {
 	private static void printList(List<Integer> valueList){
 		int counter = 0;
 		for(int value : valueList){
+			System.out.print(String.valueOf(value));
+			if(counter != valueList.size()-1){
+				System.out.print(",");
+			}
+			counter++;
+		}
+		System.out.println();
+	}
+	private static void printDoubleList(List<Double> valueList){
+		int counter = 0;
+		for(Double value : valueList){
 			System.out.print(String.valueOf(value));
 			if(counter != valueList.size()-1){
 				System.out.print(",");
@@ -91,5 +131,12 @@ public final class AnalysisAggregator {
 		printValueIterationTimeResults();
 		printPolicyIterationTimeResults();
 		printQLearningTimeResults();
+
+		System.out.println();
+		System.out.println("The data below shows the total rewards collected for the agent at the end of a given run");
+		printNumIterations();
+		printRewardSumValueIteration();
+		printRewardSumPolicyIteration();
+		printRewardSumQLearning();
 	}
 }
